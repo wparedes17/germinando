@@ -1,5 +1,46 @@
-ID,Mercado,Cadena,,,,,
-10,Aguascalientes Centro Comercial Agropecuario de Aguascalientes,Aguascalientes:%20Centro%20Comercial%20Agropecuario%20de%20Aguascalientes,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
+ID,Mercado,Cadena
+10,Aguascalientes Centro Comercial Agropecuario de Aguascalientes,Aguascalientes:%20Centro%20Comercial%20Agropecuario%20de%20Aguascalientes
+33,Baja California Norte Central de Abasto INDIA Tijuana,"Baja%20California%20:%20Central%20de%20Abasto%20INDIA,%20Tijuana"
+20,Baja California Sur Union de Comerciantes de La Paz,Baja%20California%20Sur:%20Uni%C3%B3n%20de%20Comerciantes%20de%20La%20Paz
+40,Campeche Mercado Pedro Sainz de Baranda Campeche,"Campeche:%20Mercado%20%22Pedro%20S%C3%A1inz%20de%20Baranda%22,%20Campeche"
+50,Coahuila Central de Abasto de La Laguna Torreon,"Coahuila:%20Central%20de%20Abasto%20de%20La%20Laguna,%20Torre%C3%B3n"
+80,Centros de distribucion de Colima,Colima:%20Centros%20de%20distribuci%C3%B3n%20de%20Colima
+70,Central de Abasto de Tuxtla Gutierrez,Chiapas:%20Central%20de%20Abasto%20de%20Tuxtla%20Guti%c3%a9rrez
+61,Central de Abasto de Chihuahua,Chihuahua:%20Central%20de%20Abasto%20de%20Chihuahua
+63,Mercado de Abasto de Cd Juarez,Chihuahua:%20Mercado%20de%20Abasto%20de%20Cd.%20Ju%C3%A1rez
+100,Central de Abasto de Iztapalapa DF,DF:%20Central%20de%20Abasto%20de%20Iztapalapa%20DF
+102,Durango Central de Abasto Francisco Villa,Durango:%20Central%20de%20Abasto%20%22Francisco%20Villa%22
+101,Durango Centro de Distribucion y Abasto de Gomez Palacio,Durango:%20Centro%20de%20Distribuci%C3%B3n%20y%20Abasto%20de%20G%C3%B3mez%20Palacio
+110,Guanajuato Central de Abasto de Leon,Guanajuato:%20Central%20de%20Abasto%20de%20Le%C3%B3n
+112,Guanajuato Mercado de Abasto de Celaya Benito Juarez,Guanajuato:%20Mercado%20de%20Abasto%20de%20Celaya%20(%22Benito%20Ju%C3%A1rez%22)
+111,Guanajuato Modulo de Abasto Irapuato,Guanajuato:%20M%C3%B3dulo%20de%20Abasto%20Irapuato
+121,Guerrero Central de Abastos de Acapulco,Guerrero:%20Central%20de%20Abastos%20de%20Acapulco
+130,Hidalgo Central de Abasto de Pachuca,Hidalgo:%20Central%20de%20Abasto%20de%20Pachuca
+140,Jalisco Mercado de Abasto de Guadalajara,Jalisco:%20Mercado%20de%20Abasto%20de%20Guadalajara
+141,Jalisco Mercado Felipe angeles de Guadalajara,Jalisco:%20Mercado%20Felipe%20%c3%81ngeles%20de%20Guadalajara
+151,Mexico Central de Abasto de Ecatepec,M%C3%A9xico:%20Central%20de%20Abasto%20de%20Ecatepec
+150,Mexico Central de Abasto de Toluca,M%c3%a9xico:%20Central%20de%20Abasto%20de%20Toluca
+160,Michoacan Mercado de Abasto de Morelia,Michoac%C3%A1n:%20Mercado%20de%20Abasto%20de%20Morelia
+170,Morelos Central de Abasto de Cuautla,Morelos:%20Central%20de%20Abasto%20de%20Cuautla
+172,Morelos Mercado Adolfo Lopez Mateos de Cuernavaca,Morelos:%20Mercado%20%22Adolfo%20L%C3%B3pez%20Mateos%22%20de%20Cuernavaca
+180,Nayarit Mercado de abasto Adolfo Lopez Mateos de Tepic,Nayarit:%20Mercado%20de%20abasto%20%27Adolfo%20L%C3%B3pez%20Mateos%27%20de%20Tepic
+190,Nuevo Leon Mercado de Abasto Estrella de San Nicolas de los Garza,Nuevo%20Le%C3%B3n:%20Mercado%20de%20Abasto%20%22Estrella%22%20de%20San%20Nicol%C3%A1s%20de%20los%20Garza
+200,Oaxaca Modulo de Abasto de Oaxaca,Oaxaca:%20M%C3%B3dulo%20de%20Abasto%20de%20Oaxaca
+210,Puebla Central de Abasto de Puebla,Puebla:%20Central%20de%20Abasto%20de%20Puebla
+220,Queretaro Mercado de Abasto de Queretaro,Quer%C3%A9taro:%20Mercado%20de%20Abasto%20de%20Quer%C3%A9taro
+230,Quintana Roo Mercado de Chetumal Quintana Roo,"Quintana%20Roo:%20Mercado%20de%20Chetumal,%20Quintana%20Roo"
+231,Quintana Roo Modulo de Abasto Cancun,Quintana%20Roo:%20M%C3%B3dulo%20de%20Abasto%20Canc%C3%BAn
+240,San Luis Potosi Centro de Abasto de San Luis Potosi,San%20Luis%20Potos%c3%ad:%20Centro%20de%20Abasto%20de%20San%20Luis%20Potos%C3%AD
+250,Sinaloa Central de Abasto de Culiacan,Sinaloa:%20Central%20de%20Abasto%20de%20Culiac%C3%A1n
+261,Sonora Central de Abasto de Cd Obregon,Sonora:%20Central%20de%20Abasto%20de%20Cd.%20Obreg%C3%B3n
+260,Sonora Mercado de Abasto Francisco I Madero de Hermosillo,Sonora:%20Mercado%20de%20Abasto%20%22Francisco%20I.%20Madero%22%20de%20Hermosillo
+270,Tabasco Central de Abasto de Villahermosa,Tabasco:%20Central%20de%20Abasto%20de%20Villahermosa
+281,Tamaulipas Modulo de Abasto de Reynosa,Tamaulipas:%20M%C3%B3dulo%20de%20Abasto%20de%20Reynosa
+280,Tamaulipas Modulo de Abasto de Tampico Madero y Altamira,"Tamaulipas:%20M%C3%B3dulo%20de%20Abasto%20de%20Tampico,%20Madero%20y%20Altamira"
+301,Veracruz Central de Abasto de Jalapa,Veracruz:%20Central%20de%20Abasto%20de%20Jalapa
+302,Veracruz Central de Abasto de Minatitlan,Veracruz:%20Central%20de%20Abasto%20de%20Minatitl%C3%A1n
+306,Veracruz Mercado Malibran,Veracruz:%20Mercado%20Malibr%C3%A1n
+310,Yucatan Central de Abasto de Merida,Yucat%C3%A1n:%20Central%20de%20Abasto%20de%20M%c3%a9rida
+311,Yucatan Centro Mayorista Oxkutzcab,Yucat%C3%A1n:%20Centro%20Mayorista%20Oxkutzcab
+312,Yucatan Mercado Casa del Pueblo,Yucat%C3%A1n:%20Mercado%20%22Casa%20del%20Pueblo%22
+320,Zacatecas Mercado de Abasto de Zacatecas,Zacatecas:%20Mercado%20de%20Abasto%20de%20Zacatecas
