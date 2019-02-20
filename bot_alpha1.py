@@ -72,22 +72,22 @@ def log_day(target,date,status):
     archivo.write(date+"\t"+status+"\n")
 
 #Genera la fecha de ayer con base en la fecha de hoy
-def back_day(today):
+def next_day(today):
     step = datetime.timedelta(days=1)
-    return today-step
+    return today+step
 
 #Inicio y fin del periodo de búsqueda
-day = datetime.datetime(2019, 2, 18)
-end_day = datetime.datetime(2009, 1, 1)
+day = datetime.datetime(2009, 1, 1)
+end_day = datetime.datetime(2019, 2, 18)
 
 #Descarga automática
 market = load_market_database()
 
 for i in range(5,43):
-    day = datetime.datetime(2019, 2, 18)
-    while day > end_day:
+    day = datetime.datetime(2009, 1, 1)
+    while day < end_day:
         print(day)
         day_data = get_day(market.loc[i],day.strftime('%d/%m/%Y'))
         day_status = save_day(market.loc[i],day.strftime('%d/%m/%Y'),day_data)
         log_day(market.loc[i],day.strftime('%d/%m/%Y'),day_status)
-        day = back_day(day)
+        day = next_day(day)
