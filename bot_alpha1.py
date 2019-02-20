@@ -58,7 +58,7 @@ def save_day(target,date,html_data):
             if len(hortaliza) > 1:
                 linea = date
                 for i in range(len(hortaliza)-1):
-                    linea += ","+hortaliza[i]
+                    linea += "\t"+hortaliza[i]
                 archivo.write(linea+"\n")
         archivo.close()
         return "exito"
