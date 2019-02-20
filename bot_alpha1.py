@@ -58,7 +58,7 @@ def save_day(target,date,html_data):
             if len(hortaliza) > 1:
                 linea = date
                 for i in range(len(hortaliza)-1):
-                    linea += "\t"+hortaliza[i]
+                    linea += ";"+hortaliza[i]
                 archivo.write(linea+"\n")
         archivo.close()
         return "exito"
@@ -82,11 +82,12 @@ end_day = datetime.datetime(2009, 1, 1)
 
 #Descarga automática
 market = load_market_database()
-while day > end_day:
-    print(day)
-    day_data = get_day(market.loc[1],day.strftime('%d/%m/%Y'))
-    day_status = save_day(market.loc[1],day.strftime('%d/%m/%Y'),day_data)
-    log_day(market.loc[1],day.strftime('%d/%m/%Y'),day_status)
-    day = back_day(day)
 
-
+for i in range(5,43):
+    day = datetime.datetime(2019, 2, 18)
+    while day > end_day:
+        print(day)
+        day_data = get_day(market.loc[i],day.strftime('%d/%m/%Y'))
+        day_status = save_day(market.loc[i],day.strftime('%d/%m/%Y'),day_data)
+        log_day(market.loc[i],day.strftime('%d/%m/%Y'),day_status)
+        day = back_day(day)
