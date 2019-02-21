@@ -100,12 +100,13 @@ for i in range(25,26):
     day = datetime.datetime(2013, 2, 21)
     while day < end_day:
         print(day)
-        day_data = ""
+        ok = 0
         number_try = 1
         #Segmento de intento, de momento da 5 minutos para volver a intentar o corregir conexión de internet
-        while day_data == "" and number_try < max_tries:
+        while ok == 0 and number_try < max_tries:
             try:
                 day_data = get_day(market.loc[i],day.strftime('%d/%m/%Y'))
+                ok = 1
             except:
                 number_try += 1
                 print("Upss! Algo salió mal, volveré a intentar. Intento no. "+str(number_try))
