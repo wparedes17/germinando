@@ -11,6 +11,8 @@ import urllib
 
 import datetime
 
+import time
+
 #Función para cargar la base de datos de opciones
 def load_market_database():
     return pd.read_csv("Mercados_ID.csv")
@@ -58,8 +60,15 @@ def save_day(target,date,html_data):
             if len(hortaliza) > 1:
                 linea = date
                 for i in range(len(hortaliza)-1):
-                    linea += ";"+hortaliza[i]
-                archivo.write(linea+"\n")
+                    try:
+                        linea += ";"+hortaliza[i]
+                    except:
+                        linea += ";"+"NO DISPONIBLE"
+                try:
+                    archivo.write(linea+"\n")
+                except:
+                    archivo = open(target.Mercado+"_Sin categoría"+".csv","a+")
+                    archivo.write(linea+"\n")
         archivo.close()
         return "exito"
     else:
@@ -68,7 +77,7 @@ def save_day(target,date,html_data):
 #Genera un archivo de registro para los días de exito
 def log_day(target,date,status):
     nombre = target.Mercado+"_registro.txt"
-    archivo = open(nombre,"a+",encoding="utf8")
+    archivo = open(nombre,"a+")
     archivo.write(date+"\t"+status+"\n")
 
 #Genera la fecha de ayer con base en la fecha de hoy
@@ -77,17 +86,31 @@ def next_day(today):
     return today+step
 
 #Inicio y fin del periodo de búsqueda
-day = datetime.datetime(2009, 1, 1)
-end_day = datetime.datetime(2019, 2, 18)
+day = datetime.datetime(2013, 2, 18)
+end_day = datetime.datetime(2013, 2, 22)
+
+max_tries = 10
+time_delay = 30
 
 #Descarga automática
 market = load_market_database()
 
-for i in range(5,43):
-    day = datetime.datetime(2009, 1, 1)
+
+for i in range(25,26):
+    day = datetime.datetime(2013, 2, 21)
     while day < end_day:
         print(day)
-        day_data = get_day(market.loc[i],day.strftime('%d/%m/%Y'))
+        day_data = ""
+        number_try = 1
+        #Segmento de intento, de momento da 5 minutos para volver a intentar o corregir conexión de internet
+        while day_data == "" and number_try < max_tries:
+            try:
+                day_data = get_day(market.loc[i],day.strftime('%d/%m/%Y'))
+            except:
+                number_try += 1
+                print("Upss! Algo salió mal, volveré a intentar. Intento no. "+str(number_try))
+                time.sleep(time_delay)
+        
         day_status = save_day(market.loc[i],day.strftime('%d/%m/%Y'),day_data)
         log_day(market.loc[i],day.strftime('%d/%m/%Y'),day_status)
         day = next_day(day)
