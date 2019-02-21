@@ -79,6 +79,7 @@ def log_day(target,date,status):
     nombre = target.Mercado+"_registro.txt"
     archivo = open(nombre,"a+")
     archivo.write(date+"\t"+status+"\n")
+    archivo.close()
 
 #Genera la fecha de ayer con base en la fecha de hoy
 def next_day(today):
