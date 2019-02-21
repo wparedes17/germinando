@@ -68,7 +68,7 @@ def save_day(target,date,html_data):
 #Genera un archivo de registro para los días de exito
 def log_day(target,date,status):
     nombre = target.Mercado+"_registro.txt"
-    archivo = open(nombre,"a+")
+    archivo = open(nombre,"a+",encoding="utf8")
     archivo.write(date+"\t"+status+"\n")
 
 #Genera la fecha de ayer con base en la fecha de hoy
