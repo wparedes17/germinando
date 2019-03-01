@@ -1,0 +1,76 @@
+#:kivy 1.0
+<ScreenOne>:
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+        spacing: 20
+        padding: 20
+
+        ###AQUI IMAGENES Y TODO 
+
+        Label:
+            id: label
+            text: "Cargando... " + str(root.health_points)
+
+<ScreenTwo>:
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+        spacing: 20
+        padding: 20
+
+        Label:
+            text: "Menú principal"
+        Button:
+            text: "Bases de datos"
+            on_release:
+                root.manager.current = "screen2"
+                # reset health_points
+                root.manager.ids.screen_two.health_points = 100
+
+        Button:
+            text: "Análisis"
+            on_release:
+                root.manager.current = "screen2"
+                # reset health_points
+                root.manager.ids.screen_two.health_points = 100
+
+        Button:
+            text: "Salir"
+            on_press: app.stop()
+
+        Button:
+            text: "FAQ"
+            on_release:
+                root.manager.current = "screen2"
+                # reset health_points
+                root.manager.ids.screen_two.health_points = 100
+
+        Button:
+            text: "Créditos"
+            on_release:
+                root.manager.current = "screen2"
+                # reset health_points
+                root.manager.ids.screen_two.health_points = 100
+
+
+
+
+
+<Manager>:
+    id: screen_manager
+
+    screen_one: screen_one
+    screen_two: screen_two
+
+    ScreenOne:
+        id: screen_one
+        name: "screen1"
+        manager: screen_manager
+
+    ScreenTwo:
+        id: screen_two
+        name: "screen2"
+        manager: screen_manager
