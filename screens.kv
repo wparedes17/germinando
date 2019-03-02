@@ -6,7 +6,7 @@
         size: root.size
         spacing: 20
         padding: 20
-        
+
         Image:
             id: image
             size_hint: None, None
@@ -24,6 +24,7 @@
         size: root.size
         spacing: 20
         padding: 20
+        
         Image:
             id: image
             size_hint: None, None
@@ -35,9 +36,7 @@
         Button:
             text: "Bases de datos"
             on_release:
-                root.manager.current = "screen2"
-                # reset health_points
-                root.manager.ids.screen_two.health_points = 100
+                root.manager.current = "screen3"
 
         Button:
             text: "Análisis"
@@ -64,15 +63,81 @@
                 # reset health_points
                 root.manager.ids.screen_two.health_points = 100
 
+<ScreenThree>:
 
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+        spacing: 20
+        padding: 20
 
+        Label:
+            text: "Bases de datos"
+        Button:
+            text: "Revisión de fuentes"
+            on_release:
+                root.manager.current = "screen4"
 
+        Button:
+            text: "Actualizar fuentes"
+            on_release:
+                root.manager.current = "screen2"
+                # reset health_points
+                root.manager.ids.screen_two.health_points = 100
+
+        Button:
+            text: "Regresar"
+            on_release:
+                root.manager.current = "screen2"
+
+        Button:
+            text: "Salir"
+            on_press: app.stop()
+
+<ScreenFour>:
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+        spacing: 20
+        padding: 20
+
+        Label:
+            text: "Revisión de fuentes"
+
+        Label:
+            text: "Lista de fuentes encontradas:"
+
+        Button:
+            text: "Actualizar repositorio"
+            on_release:
+                root.manager.current = "screen2"
+                # reset health_points
+                root.manager.ids.screen_two.health_points = 100
+
+        Button:
+            text: "Revisar repositorio"
+            on_release:
+                root.manager.current = "screen2"
+                # reset health_points
+                root.manager.ids.screen_two.health_points = 100
+
+        Button:
+            text: "Regresar"
+            on_release:
+                root.manager.current = "screen3"
+
+        Button:
+            text: "Salir"
+            on_press: app.stop()
 
 <Manager>:
     id: screen_manager
 
     screen_one: screen_one
     screen_two: screen_two
+    screen_three: screen_three
+    screen_four: screen_four
 
     ScreenOne:
         id: screen_one
@@ -82,4 +147,14 @@
     ScreenTwo:
         id: screen_two
         name: "screen2"
+        manager: screen_manager
+
+    ScreenThree:
+        id: screen_three
+        name: "screen3"
+        manager: screen_manager
+
+    ScreenFour:
+        id: screen_four
+        name: "screen4"
         manager: screen_manager
