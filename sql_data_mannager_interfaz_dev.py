@@ -4,6 +4,7 @@ kivy.require('1.0.5')
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.properties import ObjectProperty, NumericProperty
+from kivy.uix.image import Image
 
 import time
 import threading
