@@ -1,160 +1,240 @@
-#:kivy 1.0
-<ScreenOne>:
-
+<HomeScreen>:
+    name: 'ScreenManager'
+    
     BoxLayout:
-        orientation: "vertical"
-        size: root.size
-        spacing: 20
+        orientation: 'horizontal'
+        
+        sm_main: sm_main
+        sm: sm        
+                
+        ScreenManager:
+            id: sm_main
+            size_hint_x: 0.3
+            
+            Panel:
+            
+            Panel2:
+            
+        ScreenManager:
+            id: sm
+            size_hint_x: 0.7
+
+            Screen:
+                name: "screen0"
+                BoxLayout:
+                    orientation: 'vertical'
+                    rows: 1
+                    Button:
+                        text: "Pantalla de bienvenida"
+                        on_release: sm.current = 'screen1'
+
+            Screen1:
+            
+            Screen2:
+            
+
+<Panel>:
+    name: "panel_main"
+    
+    label: label
+    usuario: usuario
+    
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 30
         padding: 20
-
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "corn.jpg"
+                
         Image:
-            id: image
-            size_hint: None, None
-            size: 100, 100
-            source:'logo-uaq-png-1.png'
-
+            id: usuario
+            size_hint_y: 2
+            source: str(root.image_path)
+            border: 100, 100, 100, 100
+                    
+                
         Label:
             id: label
-            text: "Cargando... " + str(root.health_points)
-
-<ScreenTwo>:
-
-    BoxLayout:
-        orientation: "vertical"
-        size: root.size
-        spacing: 20
-        padding: 20
+            size_hint_x: 1
+            color: 0,0,0,1
+            bold: True
+            font_size: 18
+            text: "¡Bienvenido "+str(root.user_name)+"!"
+                
+        Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
+            text: "Perfil de usuario"
+            on_press:
+                root.parent.parent.sm.current = 'screen1'
         
-        Image:
-            id: image
-            size_hint: None, None
-            size: 100, 100
-            source:'logo-uaq-png-1.png'
-
-        Label:
-            text: "Menú principal"
         Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
             text: "Bases de datos"
-            on_release:
-                root.manager.current = "screen3"
-
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
+        
         Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
             text: "Análisis"
-            on_release:
-                root.manager.current = "screen2"
-                # reset health_points
-                root.manager.ids.screen_two.health_points = 100
-
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
         Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
             text: "Salir"
-            on_press: app.stop()
-
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
+                    
         Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
             text: "FAQ"
-            on_release:
-                root.manager.current = "screen2"
-                # reset health_points
-                root.manager.ids.screen_two.health_points = 100
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
 
         Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
             text: "Créditos"
-            on_release:
-                root.manager.current = "screen2"
-                # reset health_points
-                root.manager.ids.screen_two.health_points = 100
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
 
-<ScreenThree>:
-
+<Panel2>:
+    name: "panel2"
+    
+    label: label
+    usuario: usuario
+    
     BoxLayout:
-        orientation: "vertical"
-        size: root.size
-        spacing: 20
+        orientation: 'vertical'
+        spacing: 30
         padding: 20
-
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "corn.jpg"
+                
+        Image:
+            id: usuario
+            size_hint_y: 2
+            source: str(root.image_path)
+            border: 100, 100, 100, 100
+                    
+                
         Label:
+            id: label
+            size_hint_x: 1
+            color: 0,0,0,1
+            bold: True
+            font_size: 18
+            text: "¡Bienvenido "+str(root.user_name)+"!"
+                
+        Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
+            text: "Perfil de usuario"
+            on_press:
+                root.parent.parent.sm.current = 'screen1'
+        
+        Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
             text: "Bases de datos"
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
+        
         Button:
-            text: "Revisión de fuentes"
-            on_release:
-                root.manager.current = "screen4"
-
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
+            text: "Análisis"
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
         Button:
-            text: "Actualizar fuentes"
-            on_release:
-                root.manager.current = "screen2"
-                # reset health_points
-                root.manager.ids.screen_two.health_points = 100
-
-        Button:
-            text: "Regresar"
-            on_release:
-                root.manager.current = "screen2"
-
-        Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
             text: "Salir"
-            on_press: app.stop()
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
+                    
+        Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
+            text: "FAQ"
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
 
-<ScreenFour>:
+        Button:
+            size_hint: 0.5, 0.5
+            pos_hint: {'x':0.25,'y':0}
+            text: "Créditos"
+            on_press:
+                root.parent.parent.sm.transition.direction = 'left'
+                root.parent.parent.sm.current = 'screen2'
 
+<Screen1>:
+    name: "screen1"
+    text_input: text_input
+    
     BoxLayout:
-        orientation: "vertical"
+        orientation: 'vertical'
+        
+        TextInput:
+            id: text_input
+            multiline: False
+            text: 'Escribe tu nombre'
+        
+        Button:
+            text: 'Load'
+            on_release: root.show_load()
+        
+        Button:
+            text: 'Aplicar'
+            on_release: 
+                root.parent.parent.sm_main.current = root.panel
+
+
+
+<LoadDialog>:
+    BoxLayout:
         size: root.size
-        spacing: 20
-        padding: 20
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
 
-        Label:
-            text: "Revisión de fuentes"
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
 
-        Label:
-            text: "Lista de fuentes encontradas:"
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
 
+                           
+<Screen2>:
+    name: "screen2"
+    BoxLayout:
+        orientation: 'horizontal'
+        rows: 1
         Button:
-            text: "Actualizar repositorio"
-            on_release:
-                root.manager.current = "screen2"
-                # reset health_points
-                root.manager.ids.screen_two.health_points = 100
-
-        Button:
-            text: "Revisar repositorio"
-            on_release:
-                root.manager.current = "screen2"
-                # reset health_points
-                root.manager.ids.screen_two.health_points = 100
-
-        Button:
-            text: "Regresar"
-            on_release:
-                root.manager.current = "screen3"
-
-        Button:
-            text: "Salir"
-            on_press: app.stop()
-
-<Manager>:
-    id: screen_manager
-
-    screen_one: screen_one
-    screen_two: screen_two
-    screen_three: screen_three
-    screen_four: screen_four
-
-    ScreenOne:
-        id: screen_one
-        name: "screen1"
-        manager: screen_manager
-
-    ScreenTwo:
-        id: screen_two
-        name: "screen2"
-        manager: screen_manager
-
-    ScreenThree:
-        id: screen_three
-        name: "screen3"
-        manager: screen_manager
-
-    ScreenFour:
-        id: screen_four
-        name: "screen4"
-        manager: screen_manager
+            text: "Pantalla 2"
+            on_release: root.parent.current = 'screen0'
