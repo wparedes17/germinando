@@ -261,6 +261,8 @@
         orientation: 'vertical'
         spacing: 20
         padding: 20
+        size_hint: 1, 1
+        
         canvas:
             Color:
                 rgb:1,1,1
@@ -270,7 +272,7 @@
 
         BoxLayout:
             orientation: 'vertical'
-            size_hint: 1, 0.8
+            size_hint: 1, 0.2
             canvas:
                 Color:
                     rgb:1,1,1
@@ -278,47 +280,38 @@
                     size:self.size
                     pos:self.pos
             BoxLayout:
-                orientation: 'vertical'
-                size_hint: 1, 0.3
-                BoxLayout:
-                    orientation: 'horizontal'
-                    size_hint:1,1
-                    canvas:
-                        Color:
-                            rgb:1,1,1
-                        Rectangle:
-                            size:self.size
-                            pos:self.pos
-                    BoxLayout:
-                        orientation: 'horizontal'
-                        size_hint:.2,1
-                        Image:
-                            size_hint: .5,.8
-                            size: 100, 100
-                            source:'logo-uaq-png-1.png'
-                            pos:0,0
-                    BoxLayout:
-                        orientation: 'horizontal'
-                        size_hint:.3,1
-                        Label:
-                            text: "Agrologistica" 
-                            color: 0,0,0,1
-                            pos:0,0
-                            bold: True
-                            font_size: 38
-                    BoxLayout:
-                        orientation: 'horizontal'
-                        size_hint:.2,.9
-                        Image:
-                            size_hint: .2, 1
-                            size: .5, .50
-                            source:'diseño logo motuslab-1 fondo blanco png.png'
-        
+                orientation: 'horizontal'
+                size_hint: 1, 1                
+                canvas:
+                    Color:
+                        rgb:1,1,1
+                    Rectangle:
+                        size:self.size
+                        pos:self.pos                
+                Image:
+                    size_hint: 0.2, 1
+                    size: 100, 100
+                    source:'logo-uaq-png-1.png'
+                    pos:0,0
+                
+                Label:
+                    text: "Agrologistica" 
+                    color: 0,0,0,1
+                    size_hint: 0.6, 1
+                    bold: True
+                    font_size: 38
+                                    
+                Image:
+                    size_hint: 0.2, 1
+                    source:'diseño logo motuslab-1 fondo blanco png.png'
+
         BoxLayout:
             orientation: 'vertical'
-                    
+            size_hint: 1, 0.25
+            
             Label:
                 text: "Perfil de usuario"
+                size_hint: 1, 0.2
                 color: 0,0,0,1
                 pos:0,0
                 bold: True
@@ -332,10 +325,12 @@
                 bold: True
             
         GridLayout:
+            size_hint: 1, 0.55
             cols: 2
             spacing: 5
             
             Label:
+                size_hint: 0.5, 0.15
                 text: "Nuevo nombre"
                 color: 0,0,0,1
                 pos:0,0
@@ -344,36 +339,53 @@
             
             TextInput:
                 id: text_input
+                size_hint: 0.5, 0.15
                 multiline: False
                 text: 'Escribe tu nombre'
                 
                 
             Label:
+                size_hint: 0.2, 0.15
                 text: "Cambia tu imagen de usuario"
                 color: 0,0,0,1
                 pos:0,0
                 bold: True
                     
             Button:
+                size_hint: 0.2, 0.15
                 text: 'Cargar nueva imagen'
                 color: 1,1,1,1
                 on_release: root.show_load()
             
             Label:
+                size_hint: 0.2, 0.15
                 text: "Estado de la imagen"
                 pos:0,0
                 bold: True
     
             Label:
                 id: image_sucess
+                size_hint: 0.2, 0.15
                 text: root.load_success
                 color: root.label_color
                 pos:0,0
                 bold: True
             
+            Label:
+                size_hint: 0.2, 0.55
+                text: ""
+                pos:0,0
+                bold: True
+            
+            Label:
+                size_hint: 0.2, 0.55
+                text: ""
+                pos:0,0
+                bold: True
+            
                 
         Button:
-            size_hint: 0.5, 0.25
+            size_hint: 0.5, 0.1
             pos_hint: {'x':0.25, 'y':0}
             text: 'Aplicar'
             color: 1,1,1,1
@@ -403,17 +415,98 @@
             Button:
                 text: "Load"
                 on_release: root.load(filechooser.path, filechooser.selection)
-                
-
-               
-
-                           
+            
+                            
 <Screen2>:
     name: "screen2"
+    
     BoxLayout:
-        orientation: 'horizontal'
-        rows: 1
-        Button:
-            text: "Pantalla 2"
-            on_release: root.parent.current = 'screen0'
-            background_color: 255, 255, 255, 1
+        orientation: 'vertical'
+        spacing: 20
+        padding: 20
+        size_hint: 1, 1
+        
+        canvas:
+            Color:
+                rgb:1,1,1
+            Rectangle:
+                size:self.size
+                pos:self.pos
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, 0.2
+            canvas:
+                Color:
+                    rgb:1,1,1
+                Rectangle:
+                    size:self.size
+                    pos:self.pos
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 1, 1                
+                canvas:
+                    Color:
+                        rgb:1,1,1
+                    Rectangle:
+                        size:self.size
+                        pos:self.pos                
+                Image:
+                    size_hint: 0.2, 1
+                    size: 100, 100
+                    source:'logo-uaq-png-1.png'
+                    pos:0,0
+                
+                Label:
+                    text: "Agrologistica" 
+                    color: 0,0,0,1
+                    size_hint: 0.6, 1
+                    bold: True
+                    font_size: 38
+                                    
+                Image:
+                    size_hint: 0.2, 1
+                    source:'diseño logo motuslab-1 fondo blanco png.png'
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, 0.25
+            
+            Label:
+                text: "Bases de datos"
+                size_hint: 1, 0.2
+                color: 0,0,0,1
+                pos:0,0
+                bold: True
+                font_size: 20
+            
+            Label:
+                text: "Aquí podrás obtener y descargar información de diversos mercados agrícolas y saber si la información que tienes está día.\n"
+                text_size: self.size
+                color: 0,0,0,1
+                pos:0,0
+                bold: True
+            
+        BoxLayout:
+            size_hint: 1, .65
+            orientation: 'vertical'
+            spacing: 5
+            
+            Button: 
+                size_hint: 0.5, 0.3
+                pos_hint: {'center_x':0.5}
+                text: "Obtener información"
+                
+            Button:
+                size_hint: 0.5, 0.3 
+                pos_hint: {'center_x':0.5}
+                text: "Proporcionar información"
+            
+            Button: 
+                size_hint: 0.5, 0.3
+                pos_hint: {'center_x':0.5}
+                text: "¿Mi información está al día?"
+                
+            Label:
+                size_hint: 0.5, 0.3
+                text: ""
