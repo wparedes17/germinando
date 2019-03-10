@@ -1,0 +1,28 @@
+#:kivy 1.0
+
+<SelectableLabel>:
+    # Draw a background to indicate selection
+    canvas.before:
+        Color:
+            rgba: (.05, 0.5, .7, .3) if self.selected else (1, 1, 1, 0)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            
+    Button:
+        id:Guardar
+        text: 'Guardar'
+        color: 0,0,0,0
+    
+   
+<RV>:
+    viewclass: 'SelectableLabel'
+    SelectableRecycleBoxLayout:
+        default_size: None, dp(46)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+        multiselect: True
+        touch_multiselect: True
+        
