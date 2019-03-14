@@ -61,9 +61,9 @@ def save_day(target,date,html_data):
                 linea = date
                 for i in range(len(hortaliza)-1):
                     try:
-                        linea += ";"+hortaliza[i]
+                        linea += ","+hortaliza[i].replace(",","")
                     except:
-                        linea += ";"+"NO DISPONIBLE"
+                        linea += ","+"NO DISPONIBLE"
                 try:
                     archivo.write(linea+"\n")
                 except:
@@ -87,23 +87,23 @@ def next_day(today):
     return today+step
 
 #Inicio y fin del periodo de búsqueda
-day = datetime.datetime(2013, 2, 18)
-end_day = datetime.datetime(2013, 2, 22)
+day = datetime.datetime(2009, 1, 1)
+end_day = datetime.datetime(2019, 3, 13)
 
-max_tries = 10
-time_delay = 30
+max_tries = 3
+time_delay = 5
 
 #Descarga automática
 market = load_market_database()
 
 
-for i in range(25,26):
-    day = datetime.datetime(2013, 2, 21)
+for i in range(28,29):
+    day = datetime.datetime(2009, 1, 1)
     while day < end_day:
         print(day)
         ok = 0
         number_try = 1
-        #Segmento de intento, de momento da 5 minutos para volver a intentar o corregir conexión de internet
+        
         while ok == 0 and number_try < max_tries:
             try:
                 day_data = get_day(market.loc[i],day.strftime('%d/%m/%Y'))
