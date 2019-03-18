@@ -1,0 +1,46 @@
+#:kivy 1.10.1
+<Etiqueta>:
+	
+    canvas.before:
+        Color:
+            rgba:  0.25, 1, .25, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+	BoxLayout:
+		orientation: "horizontal"
+		size_hint: 1,1 
+	    canvas:
+			Color:
+				rgba:  0.25, 1, .25, 1
+			Rectangle:
+				size: self.size
+				pos: self.pos
+				
+		Label:
+			markup: True
+			size_hint_x: 0.7
+			size_font: self.width*0.7
+			text: "[font=Limelight]MERCADOS[/font]"
+			size_hint_y: .1
+			height:50
+			canvas.before:
+				Color:
+					rgba:  0, .5, .08, 1
+				Rectangle:
+					size: self.size
+					pos: self.pos
+		Button:
+			size_hint_x: 0.3
+			size_hint_y: .1
+			height:50
+			text: 'Actualizar todos'
+			background_color: 1, 0, 0, 1
+            
+
+            
+			        	
+		   
+
+  
+	
