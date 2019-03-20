@@ -8,6 +8,23 @@ from kivy.uix.recycleboxlayout import RecycleBoxLayout
 from kivy.uix.behaviors import FocusBehavior
 from kivy.uix.recycleview.layout import LayoutSelectionBehavior
 
+import time
+import os
+
+FechaHoy=time.strftime("%d/%m/%y")
+with open("selecciones.txt","r+") as archivo:
+    if os.stat("selecciones.txt").st_size == 0:
+     print("Vacío")
+    else: 
+        parrafo= [(columna.rstrip().split(" ")) for columna in archivo]
+        for i in parrafo:
+            U=i[-1]
+            Fecha=U[14:22]
+            if Fecha==FechaHoy:
+                Estado="Actualizado"
+            else:
+                Estado="No Actualizado"
+ListaGlobal=[]
 nombres=open("Nombres.txt","r")
 with open("lista.kv", encoding='utf8') as f:
             Builder.load_string(f.read())
@@ -38,10 +55,15 @@ class SelectableLabel(RecycleDataViewBehavior, Label):
     def apply_selection(self, rv, index, is_selected):
         self.selected = is_selected
         if is_selected:
-            print("selection changed to {0}".format(rv.data[index]))
+            print("selection changed to {0}".format(rv.data[index])
+            variable=("mercado: {0}".format(rv.data[index])+"//"+Estado+ "//ultima fecha de actualización:"+FechaHoy+'\n')
+            ListaGlobal.append(variable)
         else:
             print("selection removed for {0}".format(rv.data[index]))
-
+    def button_selection(self):
+            for i in ListaGlobal:   
+                with open("selecciones.txt","a+") as archivo:
+                    archivo.write(i)
 
 class RV(RecycleView):
     def __init__(self, **kwargs):
