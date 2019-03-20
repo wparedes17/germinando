@@ -13,13 +13,13 @@
     Button:
         id:Guardar
         text: 'Guardar'
-        color: 0,0,0,0
+        on_press: root.button_selection()
     
    
 <RV>:
     viewclass: 'SelectableLabel'
     SelectableRecycleBoxLayout:
-        default_size: None, dp(46)
+        default_size: None, dp(36)
         default_size_hint: 1, None
         size_hint_y: None
         height: self.minimum_height
