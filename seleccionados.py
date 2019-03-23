@@ -25,7 +25,6 @@ class Etiqueta(BoxLayout):
 			for linea in lineas:
 				registro.append(linea)
 		contador=0
-		border=(10,10,10,10),background_color=( 1, 0, 0, 1),background_normal="normal.png",
 		for i in mercados:
 			layout.add_widget(Label(markup =True,text="Mercado de " + i,
 				id=str(i),size_hint_x= 0.8,size_hint_y=None,color=(1, .3, .1, 1), 
@@ -34,17 +33,17 @@ class Etiqueta(BoxLayout):
 			if  'Actualizado' in str(registro[contador]):	
 				layout.add_widget(Button(id=str(i),size_hint_x= 0.1,
 					size_hint_y=None, size_font = self.width*0.4,background_normal="verde.png",
-					color=(0, 0, 0, 1),height=50,background_down= 'amarillo.png'))
+					height=50,background_down= 'amarillo.png'))
 				contador=contador+1
 			elif 'Desactualizado' in str(registro[contador]):
 				layout.add_widget(Button(id=str(i),size_hint_x= 0.1,
 					size_hint_y=None, size_font = self.width*0.4,background_normal="rojo.png",
-					color=(0, 0, 0, 1),height=50,background_down= 'amarillo.png'))
+					height=50,background_down= 'amarillo.png'))
 				contador=contador+1
 			elif 'Semidesactualizado' in str(registro[contador]):
 				layout.add_widget(Button(id=str(i),size_hint_x= 0.1,
 					size_hint_y=None, size_font = self.width*0.4,background_normal="amarillo.png.png",
-					color=(0, 0, 0, 1),height=50,background_down= 'amarillo.png'))
+					height=50,background_down= 'amarillo.png'))
 				contador=contador+1
 												
 		root = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))
