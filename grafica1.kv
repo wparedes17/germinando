@@ -1,0 +1,26 @@
+#:kivy 1.10.1
+<Caja>:
+	
+	orientation: "vertical"
+	
+	BoxLayout:
+		id: Mercados
+		size_hint: 1,.1
+		canvas:
+			Color:
+				rgba:  0, .5, .08, 1
+			Rectangle:
+				size: self.size
+				pos: self.pos
+		
+
+	BoxLayout:
+		id: Grafica
+		size_hint: 1,.9
+		canvas:
+			Color:
+				rgba:  0, 1, 0.9333, 1
+			Rectangle:
+				size: self.size
+				pos: self.pos
+	
