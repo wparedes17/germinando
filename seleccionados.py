@@ -22,7 +22,7 @@ class Etiqueta(GridLayout):
 		Window.clearcolor = (1, 1, 1, 1)
 		mercados=open("Nombres.txt","r")
 		registro=[]
-		with open('Registros.txt') as lineas:
+		with open('Selecciones.txt') as lineas:
 			for linea in lineas:
 				registro.append(linea)
 		contador=0
