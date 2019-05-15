@@ -1,4 +1,5 @@
-<Test>:
+<Login>:
+    name:"menu"
     BoxLayout:
         padding: 50, 50, 50, 50
         orientation: 'vertical'
@@ -14,29 +15,29 @@
             font_size:'27sp'
             
         BoxLayout:
-            spacing: 30
+            spacing: 20
             orientation: 'vertical'
-            size_hint_x: 0.40
             size: self.size  
             canvas:
                 Color:
                     rgb: 1,1,1
             TextInput:
+                id: passw
                 hint_text: "ingresa aquí tu clave"
-                width:100
-                size_hint_x:None
                 password:True
+                #size_hint_y: 1
+                #size_hint_x:0.10
+                #pos:(1,.2)
             Button:
                 text: 'Validar'
                 color: 0, 0, 0, 1
-                background_color: (1, 1, 1, .2)
                 font_size: self.width/10
-                on_press: root.manager.current = 'settings'
-                size_hint_x:None
-                width:100
-                #on_press: root.clave()
-                #on_press: root.login()
+                #on_release: root.verify_credentials()
+                on_release: root.check_password()
+
+                
 <SettingsScreen>:
+    name: "settings"
     BoxLayout:
         orientation:'horizontal'
         canvas:
@@ -110,7 +111,6 @@
                 hint_text: "DD/MM/AAAA"
                 size_hint_x:.2
                 size_hint_y:.2
-                #width:300
 
             
             
