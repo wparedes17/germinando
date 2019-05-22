@@ -1,0 +1,43 @@
+from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+
+#Abrir primera pagina:
+browser = webdriver.Chrome()
+browser.get(("https://nube.siap.gob.mx/cierreagricola/"))
+
+
+#Seleccionar por cultivo
+SelectionButton=browser.find_element_by_id("tipo-cult")
+browser.execute_script("arguments[0].click();", SelectionButton)
+
+#Seleccionar año
+YearButton = Select(browser.find_element_by_id("anioagric"))
+YearButton.select_by_value('2016')
+
+
+#SeleccionarCiclo
+CicloButton = Select(browser.find_element_by_id("cveCiclo"))
+CicloButton.select_by_value('1')
+
+
+#Seleccionar Modalidad
+ModalidadButton=Select(browser.find_element_by_id("cveModalidad"))
+ModalidadButton.select_by_value("1")
+
+# Seleccionar Estado
+EstadoButton=Select(browser.find_element_by_id("cveEstado"))
+EstadoButton.select_by_value("22")
+
+# Seleccionar Distrito
+DistritoButton=Select(browser.find_element_by_id("cveDistrito"))
+browser.set_page_load_timeout(15)
+DistritoButton.select_by_value("120")
+#onchange="distritos;cargamuni();
+
+# Seleccionar Municipio
+#MunicipioButton=Select(browser.find_element_by_id("cveMunicipio"))
+#browser.set_page_load_timeout(15)
+#MunicipioButton.select_by_value("7")
+
+#Consultar
+#ConsultaButton==browser.find_element_by_value("Consultar").click()
