@@ -30,14 +30,18 @@ EstadoButton.select_by_value("22")
 
 # Seleccionar Distrito
 DistritoButton=Select(browser.find_element_by_id("cveDistrito"))
-browser.set_page_load_timeout(15)
+time.sleep(3)
 DistritoButton.select_by_value("120")
-#onchange="distritos;cargamuni();
 
 # Seleccionar Municipio
-#MunicipioButton=Select(browser.find_element_by_id("cveMunicipio"))
-#browser.set_page_load_timeout(15)
-#MunicipioButton.select_by_value("7")
+MunicipioButton=Select(browser.find_element_by_id("cveMunicipio"))
+time.sleep(2)
+MunicipioButton.select_by_value("7")
 
-#Consultar
-#ConsultaButton==browser.find_element_by_value("Consultar").click()
+#Consultar 
+ConsultarButton=browser.find_element_by_xpath("//input[@value='Consultar']").click()
+
+#Descargar
+time.sleep(3)
+DescargarButton=browser.find_element_by_xpath("//img[contains(@onclick,'descargarExcel')]")
+browser.execute_script("arguments[0].click();", DescargarButton)
