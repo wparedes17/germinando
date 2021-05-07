@@ -13,7 +13,7 @@ import re
 model = smm.load_model(28)
 order_dict = {'predice':1, 'resumen':2, 'compara':3, 'precios':4}
 
-bot = telebot.TeleBot("1739935286:AAEmk8V4o_GxR3Deo0Nxu0bvuT4uBun3WGA", parse_mode=None) # You can set parse_mode by default. HTML or MARKDOWN
+bot = telebot.TeleBot("TOKEN", parse_mode=None) # You can set parse_mode by default. HTML or MARKDOWN
 
 def get_command_parameters(string, task):
     if task == 1:
