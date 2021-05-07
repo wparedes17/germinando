@@ -14,6 +14,7 @@ import datetime
 En desarollo ya predice pero pero hay funciones que quizá deberían ser trasladas a market_products_structure
 '''
 
+
 class simple_model:
     
     def __init__(self, name, data, date):
@@ -76,6 +77,7 @@ class simple_model:
                 self.period['Inicio'] = aux_date.year
             if self.period['Fin'] - self.period['Inicio'] > 5:
                 self.viability['Recurrente'] = True
+
     
     def calculate_differences(self):
         for m in range(1,13):
@@ -99,7 +101,6 @@ class simple_model:
     
     
     def make_one_simulation(self, window):
-        predicted_prices = np.zeros(window)
         aux_date = self.last_update
         
         ref_price = 0.0
@@ -111,6 +112,8 @@ class simple_model:
         except:
             pass
         
+        predicted_price = ref_price
+
         for i in range(window):
             aux_date += datetime.timedelta(days=1)
             
@@ -126,24 +129,29 @@ class simple_model:
                 slope = np.random.rand()
                 difference = np.random.exponential(np.mean(self.differences[str(ref_month)]))
                 if slope < self.probs[str(ref_month)][0]:
-                    ref_price += difference
+                    predicted_price += difference
                 elif slope > 1-self.probs[str(ref_month)][2]:
-                    ref_price -= difference
+                    predicted_price -= difference
+            else:
+                if predicted_price != ref_price:
+                    return ref_price, predicted_price, i+1
+                else:
+                    return 'Producto no disponible.\nPuede ser que sea un producto de temporada o que no se encuentre en nuestra base de datos', 0.0, 0.0
                 
-                predicted_prices[i] = ref_price
-        return predicted_prices
+        return ref_price, predicted_price, window
     
     def make_prediction(self, window, n_iters=1000):
-        expected_prediction = np.zeros(window)
+        expected_prediction = 0.0
         for i in range(n_iters):           
-            expected_prediction += self.make_one_simulation(window)
+            ref_price, aux_prediction, current_window = self.make_one_simulation(window)
+            expected_prediction += aux_prediction
         
-        return expected_prediction/1000
-            
-            
-        
-        
+        if isinstance(ref_price, str):
+            return ref_price, 0.0, 0.0, 0.0
+        else:
+            return ref_price, expected_prediction/1000.0, expected_prediction/1000.0 - ref_price, current_window
            
+    
 class market_model:
     
     def __init__(self, name, date):

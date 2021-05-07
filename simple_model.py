@@ -19,6 +19,7 @@ load_data_structure
 def load_data_structure(ids):
     f = mps.load_market_information(ids)
     market_obj = pickle.load(f)
+    f.close()
     
     return market_obj
 
@@ -36,10 +37,24 @@ def create_simple_model(market_prices_raw):
     
     return market_simple_model
 
+def estimate_model(ids):
+    try:
+        market_data_raw = load_data_structure(ids)
+        market_models = create_simple_model(market_data_raw)
 
+        f = open('28/simple_model.gdata','wb')
+        pickle.dump(market_models, f)
+        f.close()
+        return 'Modelo estimado y guardado'
 
-market_data_raw = load_data_structure(28)
-market_models = create_simple_model(market_data_raw)
+    except:
+        return 'Algo falló'
 
-test_r = market_models.products['Aguacate Hass']
-print(test_r.make_prediction(14))
+def load_model(ids):
+    f = open('28/simple_model.gdata','rb')
+    market_models = pickle.load(f)
+    f.close()
+
+    return market_models
+
+    

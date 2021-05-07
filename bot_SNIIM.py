@@ -80,4 +80,5 @@ def download_sniim(ids, day=None, max_tries = 4, time_delay = 5):
             day = mps.next_day(day)
     return end_day
 
-target_day = download_sniim(28)
+market_data = mps.load_market_information(28)
+market_obj = pickle.load(market_data)

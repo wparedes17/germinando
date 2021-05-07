@@ -1,27 +1,29 @@
-#Librerías con nombres cortos
+# -*- coding: utf-8 -*-
+
+#Libreri­as con nombres cortos
 import urllib.request as ur #Manejo de las peticiones al SNIIM
 import pandas as pd #Manejo de archivos csv
 
-#Librerías con nombre completo
+#Libreri­as con nombre completo
 import datetime # Manejo de fecha
 import pickle #Manejo de la estructura de datos: carga y guardado
 import time #Manejo de tiempo de espera para controlar peticiones
 import re #Manejo del texto recolectado
 
-#Funciones específicas de liberías
-from lxml import etree #Acomodo de estructura de la información del SNIIM
+#Funciones especi­ficas de liberi­as
+from lxml import etree #Acomodo de estructura de la informacion del SNIIM
 
 
 #Mercados del SNIIM de acuerdo a su ID y Nombre de Mercado
-#Obtenido del sitio del SNIIM en su código fuente
+#Obtenido del sitio del SNIIM en su codigo fuente
 def load_market_database():
     return pd.read_csv("E:/Documents/Python Scripts/Germinando/Mercados_ID.csv", sep=',')
 
 
 """
 load_market_information
-    Input: local_id --- n�mero entre 0 y 45 de acuerdo a nuestra listas de mercados. Por ejemplo Qro es el 28.
-    Output: 0 si no hay archivo local, el archivo si existe. El archivo tiene una estructura de datos con la información en bruto indízada
+    Input: local_id --- número entre 0 y 45 de acuerdo a nuestra listas de mercados. Por ejemplo Qro es el 28.
+    Output: 0 si no hay archivo local, el archivo si existe. El archivo tiene una estructura de datos con la informacion en bruto indi­zada
 """
 def load_market_information(local_id):
     try:
@@ -33,8 +35,8 @@ def load_market_information(local_id):
 """
 get_day
     Input: 
-        target. Una fila de un data.frame pandas con la información del mercado: su ID y CADENA con la que el SNIIM lo busca
-        ddte. Una fecha en formato texto en formato D/M/AÑO
+        target. Una fila de un data.frame pandas con la informacion del mercado: su ID y CADENA con la que el SNIIM lo busca
+        ddte. Una fecha en formato texto en formato D/M/ANO
     Output: Una lista con los resultados si es que existen.
 """
 def get_day(target, date):
@@ -68,7 +70,7 @@ box_package
     Input: 
         string_box. Una cadena con el tipo de empacado. Por ejemplo: Manojo, Docena, Caja 30 kg.
     Output: 
-        Una tupla de 2 elementos: factor de conversión y clasificación de conversión.
+        Una tupla de 2 elementos: factor de conversion y clasificacion de conversion.
 """
 def box_package(string_box):
     string_box = string_box.lower()
@@ -91,7 +93,7 @@ next_day
     Input: 
         today. Una fecha en formato datetime
     Output: 
-        Una fecha en formato datetime con los datos del día siguiente.
+        Una fecha en formato datetime con los datos del di­a siguiente.
 """
 def next_day(today):
     step = datetime.timedelta(days=1)
@@ -101,16 +103,16 @@ def next_day(today):
 """
 Clase producto: Estructura de datos para manejar los productos.
 
-    Posee 3 métodos:
+    Posee 3 metodos:
         1. add_data.                        
-        2. make_record. Procesar la información en bruto y actualizar la estructura
-        3. update_compatibility. Revisa la fidelidad de los precios debido a conversión.
+        2. make_record. Procesar la informacion en bruto y actualizar la estructura
+        3. update_compatibility. Revisa la fidelidad de los precios debido a conversion.
         
-    Posee la siguiente información:
-        1. Históricos resumidos de origenes
-        2. Históricos resumidos de calidad
-        3. Históricos resumidos de presentación
-        4. Históricos diarios indizados de precios
+    Posee la siguiente informacion:
+        1. Historicos resumidos de origenes
+        2. Historicos resumidos de calidad
+        3. Historicos resumidos de presentacion
+        4. Historicos diarios indizados de precios
 """
 class product:    
     def __init__(self, name, date):
@@ -175,17 +177,17 @@ class product:
 """
 Clase producto: Estructura de datos para manejar los productos.
 
-    Posee 3 métodos:
-        1. make_logs. Genera un registro sobre si se tiene información del día o no.
-        2. add_record. Adicionar información en bruto y registra que hay información sin procesar.
-        3. make_records. Procesa la información y actualiza la lista de productos existentes
+    Posee 3 metodos:
+        1. make_logs. Genera un registro sobre si se tiene informacion del di­a o no.
+        2. add_record. Adicionar informacion en bruto y registra que hay informacion sin procesar.
+        3. make_records. Procesa la informacion y actualiza la lista de productos existentes
         
-    Posee la siguiente información:
+    Posee la siguiente informacion:
         1. Nombre del mercado
-        2. Resumen vacío
+        2. Resumen vacÃ­o
         3. Listado indizado de todos los productos que se han vendido alguna vez en el mercado desde la fecha 2009-01-01
-        4. Registro de si se tiene los datos de un día específico
-        5. Fecha de última actualización
+        4. Registro de si se tiene los datos de un di­a especi­fico
+        5. Fecha de ultima actualizacion
 """        
 class market:
     
@@ -234,6 +236,7 @@ class market:
                     self.products[p[0]].add_data(p[1:], self.last_update)
                     self.products[p[0]].make_record()
                     self.products[p[0]].update_compatibility()
+                    
                     
          
 
