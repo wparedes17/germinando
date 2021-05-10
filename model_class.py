@@ -8,7 +8,10 @@ Created on Thu May  6 06:51:40 2021
 import numpy as np
 
 import datetime
+import json
 
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 
 '''
 En desarollo ya predice pero pero hay funciones que quizá deberían ser trasladas a market_products_structure
@@ -26,6 +29,7 @@ class simple_model:
         self.period = {'Inicio':0, 'Fin':0}
         self.differences = {}
         self.probs = {}
+        self.short_terms = {}
         
     def trustworthiness(self):
         day = datetime.date.today()
@@ -99,7 +103,32 @@ class simple_model:
             else:
                 self.status[str(m)] = False
     
-    
+    def calculate_short_term(self):
+        x = []
+        y = []
+        for m in range(1,13):
+            select_month = []
+            for a in range(self.period['Inicio'],self.period['Fin']+1):
+                try:
+                    select_month = [i for i in self.raw_data.prices[str(a)][str(m)]['Frecuente'] if i > 0]
+                except:
+                    pass
+                if len(select_month) > 0:
+                    y.append(np.mean(np.array(select_month)))
+                    x.append(m)
+        try:
+            if len(set(x)) > 3:
+                poly_reg = PolynomialFeatures(degree=2)
+                x_poly = poly_reg.fit_transform(np.array(x).reshape((-1, 1)))
+                trend_model = LinearRegression()
+                trend_model.fit(x_poly,np.array(y))
+                print(self.name,trend_model.coef_)
+                self.short_terms = {'Status':1, 'Coeficientes':trend_model.coef_}
+            else:
+                self.short_terms = {'Status':0, 'Coeficientes':0}
+        except:
+            self.short_terms = {'Status':0, 'Coeficientes':0}
+
     def make_one_simulation(self, window):
         aux_date = self.last_update
         
@@ -164,3 +193,17 @@ class market_model:
             self.products[product_name] = simple_model(product_name, product_prices, date)
         else:
             print('El modelo ya existe, ejecutar update')
+            
+    def export_product_names(self, ids):
+        f = open(str(ids)+'/product_names.json', 'w')
+        dict_to_export = {}
+        for i in self.products.keys():
+            if self.products[i].viability['Recurrente'] and self.products[i].viability['Actual'] and self.products[i].viability['Compatibilidad']:
+                if i == 'Limón c/semilla # 5':
+                    dict_to_export['limon'] = i
+                else:
+                    dict_to_export[i.lower()] = i
+        dict_to_export['jitomate'] = 'Tomate Saladette'
+        dict_to_export['tomatillo'] = 'Tomate Verde'
+        json.dump(dict_to_export, f)
+        f.close()

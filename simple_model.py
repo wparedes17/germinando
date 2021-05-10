@@ -34,7 +34,8 @@ def create_simple_model(market_prices_raw):
         market_simple_model.add_product(i, market_prices_raw.products[i], market_prices_raw.products[i].last_update)
         market_simple_model.products[i].trustworthiness()
         market_simple_model.products[i].calculate_differences()
-    
+        market_simple_model.products[i].calculate_short_term()
+        
     return market_simple_model
 
 def estimate_model(ids):
@@ -45,7 +46,8 @@ def estimate_model(ids):
         f = open('28/simple_model.gdata','wb')
         pickle.dump(market_models, f)
         f.close()
-        return 'Modelo estimado y guardado'
+        
+        return market_models
 
     except:
         return 'Algo falló'
@@ -57,4 +59,4 @@ def load_model(ids):
 
     return market_models
 
-    
+
