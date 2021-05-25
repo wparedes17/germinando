@@ -29,16 +29,20 @@ def download_sniim(ids, day=None, max_tries = 4, time_delay = 5):
     if day is None:
         day = datetime.datetime(2009, 1, 1)
     
-    market_ids = mps.load_market_database().loc[28]
+    market_ids = mps.load_market_database().loc[ids]
     end_day = datetime.datetime(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
 
     while day <= end_day:
         print(day)
         #Market_data es la información ya en nuestro poder, arroja 0 si no existe información alguna
-        market_data = mps.load_market_information(28)
+        market_data = mps.load_market_information(ids)
         
         #Market_name es el nombre con el que se identifica el mercado actual de consulta
-        market_name= re.findall(r'[Mm]er.*', market_ids.Mercado)[0]
+        try:
+            market_name= re.findall(r'[Mm]erca.*', market_ids.Mercado)[0]
+        
+        except:
+            market_name= re.findall(r'[Cc]entr.*', market_ids.Mercado)[0]
         
         if isinstance(market_data, int):
             
@@ -49,7 +53,7 @@ def download_sniim(ids, day=None, max_tries = 4, time_delay = 5):
             market_obj.add_record(day_data)
             market_obj.make_records()
             
-            f = open('28/information.gdata','wb')
+            f = open(str(ids)+'/information.gdata','wb')
             pickle.dump(market_obj, f)
             f.close()
             
@@ -73,12 +77,48 @@ def download_sniim(ids, day=None, max_tries = 4, time_delay = 5):
             if status == 1:
                 market_obj.add_record(day_data)
                 market_obj.make_records()
-                f = open('28/information.gdata','wb')
+                f = open(str(ids)+'/information.gdata','wb')
                 pickle.dump(market_obj, f)
                 f.close()
                 
             day = mps.next_day(day)
     return end_day
 
-market_data = mps.load_market_information(28)
-market_obj = pickle.load(market_data)
+
+def main():
+    try:
+        while True:
+            print("Este bot se puede detener con CTRL+C.\n")
+            for i in range(45):
+                try:
+                    market_data = mps.load_market_information(i)
+                    if not isinstance(market_data, int):
+                        thereisdata = True
+                    else:
+                        thereisdata = False
+                except:
+                    print("Algo falló")                    
+                    
+                
+                if thereisdata:
+                    print("\nSe intentará poner al día al mercado "+str(i+1)+'\n')
+                    today_day = datetime.datetime(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
+                    market_obj = pickle.load(market_data)
+                    
+                    if (market_obj.status == 0) and (today_day >= market_obj.last_update):
+                        download_sniim(i, day=market_obj.last_update)
+                        print("\nSe puso al día al mercado "+str(i+1)+'\n')
+                    elif (market_obj.status == 1) and (today_day > market_obj.last_update):
+                        download_sniim(i, day=market_obj.last_update+datetime.timedelta(days=1))
+                        print("\nSe puso al día al mercado "+str(i+1)+'\n')
+                    else:
+                        print("\nEl mercado "+str(i+1)+' está al día, se volverá a intentar en 24 hrs.\n')
+                else:
+                    print('El mercado '+str(i+1)+' se iniciará a descargar')
+                    download_sniim(i)
+            
+            time.sleep(86400)
+    except KeyboardInterrupt:
+        pass
+            
+main()
