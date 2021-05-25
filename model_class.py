@@ -128,8 +128,8 @@ class simple_model:
                 self.short_terms = {'Status':0, 'Coeficientes':0}
         except:
             self.short_terms = {'Status':0, 'Coeficientes':0}
-
-    def make_one_simulation(self, window):
+    
+    def get_current_price(self):
         aux_date = self.last_update
         
         ref_price = 0.0
@@ -140,6 +140,12 @@ class simple_model:
             ref_price = self.raw_data.prices[str(ref_year)][str(ref_month)]['Frecuente'][ref_day-1]
         except:
             pass
+        
+        return ref_price, ref_day, ref_month, ref_year
+    
+    def make_one_simulation(self, window):
+        aux_date = self.last_update
+        ref_price, ref_month, ref_day, ref_year = self.get_current_price()
         
         predicted_price = ref_price
 
@@ -179,7 +185,7 @@ class simple_model:
             return ref_price, 0.0, 0.0, 0.0
         else:
             return ref_price, expected_prediction/1000.0, expected_prediction/1000.0 - ref_price, current_window
-           
+        
     
 class market_model:
     
@@ -205,5 +211,9 @@ class market_model:
                     dict_to_export[i.lower()] = i
         dict_to_export['jitomate'] = 'Tomate Saladette'
         dict_to_export['tomatillo'] = 'Tomate Verde'
+        dict_to_export['sandia'] = 'Sandía Rayada'
+        dict_to_export['melon'] = 'Melón Cantaloupe sin clasificación'
         json.dump(dict_to_export, f)
         f.close()
+        
+    
