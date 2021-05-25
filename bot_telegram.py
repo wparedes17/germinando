@@ -13,7 +13,7 @@ import re
 
 model = smm.load_model(28)
 
-bot = telebot.TeleBot("TOKEN", parse_mode=None) # You can set parse_mode by default. HTML or MARKDOWN
+bot = telebot.TeleBot("TOKEN", parse_mode='HTML') # You can set parse_mode by default. HTML or MARKDOWN
 
 def validate_command(command):
     if command['instruccion'] is None:
@@ -29,7 +29,6 @@ def validate_command(command):
 
 def process_command(string):
     if re.search(r'@.*', string):
-        print('hola')
         orden = {'instruccion':None, 'producto':None, 'mercado':None, 'auxiliares':None}
         window_names = {'mes':30, 'meses':30, 'semana':7, 'semanas':7,'año':365, 'años':365, 'dia':1, 'dias':1}
         try:
@@ -65,14 +64,16 @@ def date_to_window(model, date, name_product):
     
     return (target_date-model_date).days
 
+
 def action_forecast(model, ids, orden):
     answer = ''
     if len(orden['producto'][ids]) > 1:
         answer += 'La instrucción contiene más de un producto. Te muestro lo que encontré:\n\n'
     
     for i in orden['producto'][ids]:
+        print(i)
         try:
-            answer += model.products[i].name
+            answer += '<b>'+model.products[i].name+'</b>\n'
             if 'fecha' in orden['auxiliares']:
                 pred = model.products[i].make_prediction(date_to_window(model, orden['auxiliares']['fecha'], i))
             else:
@@ -83,16 +84,62 @@ def action_forecast(model, ids, orden):
             else:
                 pred = [round(i, 2) for i in pred]
                 if pred[2] > 0:
-                    answer = 'Se espera un incremento para dentro de ' + str(pred[3]) + ' días después del ' + model.products[i].last_update.strftime('%d/%m/%Y') + '\n\n'
+                    answer += 'Se espera un incremento para dentro de ' + str(pred[3]) + ' días después del ' + model.products[i].last_update.strftime('%d/%m/%Y') + '\n\n'
                     answer += 'Incremento esperado de ' + str(pred[2]) +' MXN\n\n'
                 else:
-                    answer = 'Se espera un decremento para dentro de ' + str(pred[3]) + ' días después del ' + model.products[i].last_update.strftime('%d/%m/%Y') + ' es de:\n\n'  
+                    answer += 'Se espera un decremento para dentro de ' + str(pred[3]) + ' días después del ' + model.products[i].last_update.strftime('%d/%m/%Y') + ' es de:\n\n'  
                     answer += str(-pred[2])+'\n\n'
-                answer += 'Pasando de '+ str(pred[0]) + ' MXN  a ' + str(pred[1]) + ' MXN\n\n'  
+                answer += 'Hoy está a '+ str(pred[0]) + ' MXN y llegará a' + str(pred[1]) + ' MXN\n\n'
         except:
             answer += i+' -- No disponible en el mercado\n\n'
+        
+        answer += '----------\n'
     
     return answer
+
+def action_summary(model, ids, orden):
+    meses = {1:'Enero', 2:'Febrero', 3:'Marzo', 4:'Abril', 5:'Mayo', 6:'Junio', 7:'Julio', 8:'Agosto', 9:'Septiembre', 10:'Octubre', 11:'Noviembre', 12:'Diciembre'}
+    answer = ''
+    if len(orden['producto'][ids]) > 1:
+        answer += 'La instrucción contiene más de un producto. Te muestro lo que encontré:\n\n'
+    
+    for i in orden['producto'][ids]:
+        try:
+            answer += '<b>'+model.products[i].name+'</b>\n'
+            current_price, aux_1, aux_2, aux_3 = model.products[i].get_current_price()
+            aux_ref_y = datetime.date.today().year
+            aux_ref_m = datetime.date.today().month
+            if (aux_ref_y == aux_3) and(aux_ref_m == aux_2):
+                answer += 'El precio al ' + model.products[i].last_update.strftime('%d/%m/%Y') + ' es de ' + str(round(current_price,2))+'\n\n'
+                if model.products[i].short_terms['Status'] == 1:
+                    coefs = model.products[i].short_terms['Coeficientes']
+                    for c in coefs:
+                        print(c)
+                    maximo = int(round(-coefs[1]/(2*coefs[2])))
+                    if (coefs[2] < 0) and (maximo in meses):
+                        answer += 'Los precios más altos se encuentran alrededor del mes de:  ' + meses[maximo]+'\n'
+                        answer += 'El producto tiene un comportamiento temporal'+'\n'
+                        diff = (11*coefs[1]+143*coefs[2])/current_price*100
+                        answer += '\nAdemás su precio presenta '  + str(round(diff,2)) + '% de incremento anual'+'\n'  
+                    elif (coefs[2] < 0) and (coefs[1] < 0):
+                        answer += 'Los precios más altos se encuentran alrededor del mes de:  Enero\n'
+                        answer += 'Los precios descienden a lo largo de año'+'\n'
+                    elif (coefs[2] > 0) and (maximo in meses):
+                        answer += 'Los precios más bajos se encuentran alrededor del mes de:  ' + meses[maximo]+'\n'
+                        answer += 'Los precios más altos usualmente ocurren al final del año de mes por la inflación'+'\n'
+                        diff = (11*coefs[1]+143*coefs[2])/current_price*100
+                        answer += '\nAdemás su precio presenta '  + str(round(diff,2)) + '% de incremento anual'+'\n'  
+                    
+                else:
+                     answer += i+' -- No disponible en el mercado\n\n'
+            else:
+                 answer += i+' -- No disponible en el mercado\n\n'
+        except:
+             answer += i+' -- No disponible en el mercado\n\n'
+        answer += '----------\n'
+    
+    return answer
+    
             
 def make_action(string):
     print(string)
@@ -108,6 +155,11 @@ def make_action(string):
                 if action_command['instruccion'] == 'predice':
                     message_answer += market.name+'\n'
                     message_answer += action_forecast(market, k, action_command)
+                elif action_command['instruccion'] == 'resumen':
+                    message_answer += market.name+'\n'
+                    message_answer += action_summary(market, k, action_command)
+                else:
+                    message_answer += 'De momento no puedo responder de momento.'
             except:
                 message_answer += mkt + '  -- Mercado no disponible. Pero pronto estará\n\n'
     else:
