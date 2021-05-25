@@ -59,4 +59,3 @@ def load_model(ids):
 
     return market_models
 
-

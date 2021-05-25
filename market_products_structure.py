@@ -17,7 +17,7 @@ from lxml import etree #Acomodo de estructura de la informacion del SNIIM
 #Mercados del SNIIM de acuerdo a su ID y Nombre de Mercado
 #Obtenido del sitio del SNIIM en su codigo fuente
 def load_market_database():
-    return pd.read_csv("E:/Documents/Python Scripts/Germinando/Mercados_ID.csv", sep=',')
+    return pd.read_csv("SNIIM_files/Mercados_ID.csv", sep=',')
 
 
 """
